@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Modal } from "react-bootstrap";
+import config from "./config";
 
 function DocumentIDExtractor() {
   const [file, setFile] = useState(null);
@@ -10,6 +11,10 @@ function DocumentIDExtractor() {
   const [allDocuments, setAllDocuments] = useState([]);
   const [fileName, setFileName] = useState(null);
   const [loading, setLoading] = useState(false);
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? config.productionUrl
+      : config.localUrl;
 
   const handleFileUpload = (e) => {
     const selectedFile = e.target.files[0];
@@ -22,11 +27,11 @@ function DocumentIDExtractor() {
   const getAllDocuments = async () => {
     try {
       setLoading(true);
-      // const apiUrl =
-      //   process.env.NODE_ENV === "production"
-      //     ? config.productionUrl
-      //     : config.localUrl;
-      const response = await axios.get(`http://localhost:5000/api/v1/getPdfs`);
+      const apiUrl =
+        process.env.NODE_ENV === "production"
+          ? config.productionUrl
+          : config.localUrl;
+      const response = await axios.get(`${apiUrl}/api/v1/getPdfs`);
       console.log("All document Fetched:", response.data.result);
       setAllDocuments(response.data.result);
       setLoading(false);
@@ -40,9 +45,12 @@ function DocumentIDExtractor() {
     try {
       setLoading(true);
       setShowModal(false);
-
+      const apiUrl =
+        process.env.NODE_ENV === "production"
+          ? config.productionUrl
+          : config.localUrl;
       const response = await axios.get(
-        `http://localhost:5000/savedoc?fileId=${fileId}&fileName=${fileName}`
+        `${apiUrl}/savedoc?fileId=${fileId}&fileName=${fileName}`
       );
       console.log("Save Function = ", response);
       setLoading(false);
@@ -73,10 +81,14 @@ function DocumentIDExtractor() {
           "Content-Type": "multipart/form-data",
         },
       };
+      const apiUrl =
+        process.env.NODE_ENV === "production"
+          ? config.productionUrl
+          : config.localUrl;
 
       // Replace with your server URL
       const response = await axios.post(
-        "http://localhost:5000/editDocument",
+        `${apiUrl}/editDocument`,
         formData,
         config // Pass the config object with headers
       );
@@ -104,7 +116,11 @@ function DocumentIDExtractor() {
   const handleCreateDocument = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/create`);
+      const apiUrl =
+        process.env.NODE_ENV === "production"
+          ? config.productionUrl
+          : config.localUrl;
+      const response = await axios.get(`${apiUrl}/create`);
       console.log(
         "New Document created = ",
         response.data.message,
@@ -201,7 +217,7 @@ function DocumentIDExtractor() {
                           setLoading(true);
                           console.log(fileName);
                           const response = await axios.post(
-                            `http://localhost:5000/editDocument?fileName=${fileName}`
+                            `${apiUrl}/editDocument?fileName=${fileName}`
                           );
 
                           if (response.status === 200) {
