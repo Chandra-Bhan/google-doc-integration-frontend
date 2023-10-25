@@ -38,7 +38,6 @@ function DocumentIDExtractor() {
     } catch (error) {
       console.error("ERROR: ", error);
       setLoading(false);
-      alert("Please Refresh the Page backend server is not responded !!!");
     }
   };
   const saveDoc = async () => {
