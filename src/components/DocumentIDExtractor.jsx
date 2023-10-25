@@ -15,7 +15,7 @@ function DocumentIDExtractor() {
     process.env.NODE_ENV === "production"
       ? config.productionUrl
       : config.localUrl;
-
+  console.log(apiUrl);
   const handleFileUpload = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -35,6 +35,7 @@ function DocumentIDExtractor() {
       console.log("All document Fetched:", response.data.result);
       setAllDocuments(response.data.result);
       setLoading(false);
+      console.log(apiUrl);
     } catch (error) {
       console.error("ERROR: ", error);
       setLoading(false);
@@ -55,6 +56,7 @@ function DocumentIDExtractor() {
       setLoading(false);
 
       alert("SuccessFully Saved !!!");
+      console.log(apiUrl);
       getAllDocuments();
     } catch (error) {
       console.log("Error: ", error);
@@ -100,6 +102,7 @@ function DocumentIDExtractor() {
         setFileName(data.fileName);
         setShowModal(true);
         setLoading(false);
+        console.log(apiUrl);
         // window.open(data.documentUrl, "_blank");
       } else {
         console.error("Failed to edit the document.");
@@ -131,6 +134,7 @@ function DocumentIDExtractor() {
       setFileName(response.data.fileName);
       setShowModal(true);
       setLoading(false);
+      console.log(apiUrl);
     } catch (err) {
       console.log(err.message);
       setLoading(false);
@@ -218,7 +222,7 @@ function DocumentIDExtractor() {
                           const response = await axios.post(
                             `${apiUrl}/editDocument?fileName=${fileName}`
                           );
-
+                          console.log(apiUrl);
                           if (response.status === 200) {
                             const data = response.data;
                             setGoogleDocsURL(data.documentUrl);
