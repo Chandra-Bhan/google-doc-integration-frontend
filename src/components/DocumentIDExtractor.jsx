@@ -127,20 +127,11 @@ function DocumentIDExtractor() {
 
   return (
     <div>
-      <h2
-        className="text-secondary"
-        style={{
-          textAlign: "center",
-          textDecoration: "underline",
-          marginRight: "-55rem",
-        }}
-      >
-        Create Document
-      </h2>
       <button
         onClick={handleCreateDocument}
         style={{
           marginRight: "-55rem",
+          marginTop: "5rem",
         }}
         className="btn btn-primary"
       >
